@@ -21,7 +21,7 @@ void reporterGenerator::run(){
         QFileInfo images_Files(images_Directory.filePath());
         if((images_Files.fileName() == ".") || (images_Files.fileName() == "..") || (images_Files.fileName() == " ")){
         } else {
-            if(images_Files.isFile()){
+            if(images_Files.isFile() && images_Files.suffix() == "jpg"){
                 emit Images(images_Files.fileName());
             }
         }
