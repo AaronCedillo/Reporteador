@@ -9,6 +9,7 @@ class reporterGenerator : public QThread
 public:
     explicit reporterGenerator(QObject *parent = nullptr);
     QString folder_Images; //Esto sera igualmente una DB
+    QString pdf_File;
 
 signals:
     void Images(QString);

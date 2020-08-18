@@ -59,10 +59,10 @@ void Reporter::on_reportGenerator_clicked()
         QMessageBox::critical(this, tr("Warning"), reporter.errorString());
     }
 
+    mReporter -> pdf_File = fileName;
     mReporter -> folder_Images = ImagesFolder;
     mReporter -> start(QThread::HighestPriority);
 }
-
 
 void Reporter::reporter_Folder(){
     if(QDir("C:/Reportes").exists()){
