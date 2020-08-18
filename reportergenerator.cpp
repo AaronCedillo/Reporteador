@@ -15,13 +15,15 @@ reporterGenerator::reporterGenerator(QObject *parent) :
 
 void reporterGenerator::run(){
 
-    QDirIterator images_Directory(folder_Images, QDirIterator::NoIteratorFlags);
+    QDirIterator images_Directory(folder_Images, QDirIterator::Subdirectories);
     while(images_Directory.hasNext()) {
         images_Directory.next();
         QFileInfo images_Files(images_Directory.filePath());
         if((images_Files.fileName() == ".") || (images_Files.fileName() == "..") || (images_Files.fileName() == " ")){
         } else {
-            emit Images(images_Files.fileName());
+            if(images_Files.isFile()){
+                emit Images(images_Files.fileName());
+            }
         }
     }
 }
