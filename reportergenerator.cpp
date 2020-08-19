@@ -7,14 +7,14 @@
 #include "QStylePainter"
 #include <QtPrintSupport/QPrintEngine>
 #include "QFileDialog"
+#include "QDateTime"
 
 reporterGenerator::reporterGenerator(QObject *parent) :
     QThread(parent)
 {
 }
 
-void reporterGenerator::run(){
-
+void reporterGenerator::run(){   
     QDirIterator images_Directory(folder_Images, QDirIterator::Subdirectories);
     while(images_Directory.hasNext()) {
         images_Directory.next();
@@ -23,6 +23,8 @@ void reporterGenerator::run(){
         } else {
             if(images_Files.isFile() && images_Files.suffix() == "jpg"){
                 emit Images(images_Files.fileName());
+                QDateTime data_Files = images_Files.lastModified();
+                QString data_StringFiles = data_Files.toString("dd.MM.yyyy");
             }
         }
     }
