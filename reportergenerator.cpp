@@ -15,6 +15,7 @@ reporterGenerator::reporterGenerator(QObject *parent) :
 }
 
 void reporterGenerator::run(){   
+
     QDirIterator images_Directory(folder_Images, QDirIterator::Subdirectories);
     while(images_Directory.hasNext()) {
         images_Directory.next();
@@ -25,6 +26,9 @@ void reporterGenerator::run(){
                 emit Images(images_Files.fileName());
                 QDateTime data_Files = images_Files.lastModified();
                 QString data_StringFiles = data_Files.toString("dd.MM.yyyy");
+                if(data_StringFiles == startDate_Reporter){
+                    qDebug() << data_StringFiles;
+                }
             }
         }
     }
