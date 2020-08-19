@@ -22,7 +22,7 @@ Reporter::Reporter(QWidget *parent)
 
     mReporter = new reporterGenerator(this);
     connect(mReporter, &reporterGenerator::Images, [&] (QString ImagesPath){
-        //qDebug() << ImagesPath;
+        qDebug() << ImagesPath;
     });
 
     date = QDate::currentDate();
@@ -61,11 +61,15 @@ void Reporter::on_reportGenerator_clicked()
             QMessageBox::critical(this, tr("Warning"), reporter.errorString());
         }
 
-        QString startDate_String = ui -> startDate-> date().toString("dd.MM.yyyy");
-        QString finalDate_String = ui -> finalDate -> date().toString("dd.MM.yyyy");
+        int startDate_Day = ui ->startDate -> date().day();
+        int startDate_Month = ui -> startDate -> date().month();
+        int finalDate_Day = ui -> finalDate -> date().day();
+        int finalDate_Month = ui -> finalDate -> date().month();
 
-        mReporter -> startDate_Reporter = startDate_String;
-        mReporter -> finalDate_Reporter = finalDate_String;
+        mReporter -> startDay_Reporter = startDate_Day;
+        mReporter -> finalDay_Reporter = finalDate_Day;
+        mReporter -> startMonth_Reporter = startDate_Month;
+        mReporter -> finalMonth_Reporter = finalDate_Month;
         mReporter -> pdf_File = fileName;
         mReporter -> folder_Images = ImagesFolder;
         mReporter -> start(QThread::HighestPriority);

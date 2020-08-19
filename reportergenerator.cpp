@@ -23,11 +23,13 @@ void reporterGenerator::run(){
         if((images_Files.fileName() == ".") || (images_Files.fileName() == "..") || (images_Files.fileName() == " ")){
         } else {
             if(images_Files.isFile() && images_Files.suffix() == "jpg"){
-                emit Images(images_Files.fileName());
                 QDateTime data_Files = images_Files.lastModified();
-                QString data_StringFiles = data_Files.toString("dd.MM.yyyy");
-                if(data_StringFiles == startDate_Reporter){
-                    qDebug() << data_StringFiles;
+                int startDay_File = data_Files.date().day();
+                int startMonth_File = data_Files.date().month();
+                if(startDay_File >= startDay_Reporter && startDay_File <= finalDay_Reporter){
+                    if(startMonth_File >= startMonth_Reporter && startMonth_File <= finalMonth_Reporter){
+                        emit Images(images_Files.fileName());
+                    }
                 }
             }
         }
