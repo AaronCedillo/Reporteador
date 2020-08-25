@@ -1,6 +1,7 @@
 #include "reporter.h"
 #include "ui_reporter.h"
 #include "reportergenerator.h"
+#include "database.h"
 
 #include "QFileDialog"
 #include "QDebug"
@@ -20,9 +21,11 @@ Reporter::Reporter(QWidget *parent)
     ui->setupUi(this);
     reporter_Folder();
 
+    mDataBase = new DataBase(this);
     mReporter = new reporterGenerator(this);
+
     connect(mReporter, &reporterGenerator::Images, [&] (QString ImagesPath){
-        qDebug() << ImagesPath;
+        //qDebug() << ImagesPath;
     });
 
     date = QDate::currentDate();
@@ -72,6 +75,9 @@ void Reporter::on_reportGenerator_clicked()
         mReporter -> finalMonth_Reporter = finalDate_Month;
         mReporter -> pdf_File = fileName;
         mReporter -> folder_Images = ImagesFolder;
+        mDataBase -> start(QThread::HighestPriority);
+
+        mDataBase -> images = ImagesFolder;
         mReporter -> start(QThread::HighestPriority);
     }
 }

@@ -8,6 +8,7 @@ namespace Ui { class Reporter; }
 QT_END_NAMESPACE
 
 class reporterGenerator;
+class DataBase;
 
 class Reporter : public QMainWindow
 {
@@ -25,5 +26,6 @@ private slots:
 private:
     Ui::Reporter *ui;
     reporterGenerator *mReporter;
+    DataBase *mDataBase;
 };
 #endif // REPORTER_H
