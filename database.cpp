@@ -1,6 +1,7 @@
 #include "database.h"
 #include "qdebug.h"
 
+#include "QDateTime"
 #include "QDirIterator"
 
 DataBase::DataBase(QObject *parent) : QThread(parent)
@@ -45,18 +46,22 @@ void DataBase::leerDatos()
         QFileInfo images_Info(images_Repository.filePath());
         if((images_Info.fileName() == ".") || (images_Info.fileName() == "..") || (images_Info.fileName() == " ")){
         } else {
-            ingresarDatos(images_Info.fileName());
+            if(images_Info.isFile() && images_Info.suffix() == "jpg"){
+                ingresarDatos(images_Info.lastModified());
+            }
         }
     }
 }
 
-void DataBase::ingresarDatos(QString fileNames)
+void DataBase::ingresarDatos(QDateTime(file_Date))
 {
+
+    QString date = file_Date.toString("dd.MM.yyyy");
     QString consulta;
     consulta.append("INSERT INTO imagenes( "
                     "name)"
                     "VALUES("
-                    " ' "+fileNames+ " ' "
+                    " ' "+date+ " ' "
                                      "); ");
     QSqlQuery insertar;
     insertar.prepare(consulta);
